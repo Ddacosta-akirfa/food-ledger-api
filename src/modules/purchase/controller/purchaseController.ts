@@ -13,8 +13,8 @@ const purchaseService = new PurchaseService(purchaseRepository);
 
 export async function createPurchase(req: Request, res: Response) {
   try {
-    const purchaseDTO = req.body;
-    const purchase = await purchaseService.createPurchase(purchaseDTO);
+    const data = req.body;
+    const purchase = await purchaseService.createPurchase(data);
 
     return ApiResponse.created(res, "Compra criada com sucesso", purchase);
   } catch (error: any) {
