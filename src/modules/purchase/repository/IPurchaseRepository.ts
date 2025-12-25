@@ -3,7 +3,9 @@ import { MonthlySummaryDto } from "../dto/MonthlySummaryDto.js";
 import { PurchaseDto } from "../dto/PurchaseDto.js";
 
 export interface IPurchaseRepository {
-  create(data: CreatePurchaseDto): Promise<CreatePurchaseDto>;
+  create(data: CreatePurchaseDto): Promise<PurchaseDto>;
+
+  findAll(userId: string): Promise<PurchaseDto[]>;
 
   findByMonth(
     userId: string,

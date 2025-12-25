@@ -1,9 +1,9 @@
-export interface CategorySummaryDto {
+export interface CategorySummaryDTO {
   categoryId: string;
   total: number;
 }
 
-export interface MonthlySummaryDto {
+export interface MonthlySummaryDTO {
   total: number;
-  byCategory: CategorySummaryDto[];
+  byCategory: CategorySummaryDTO[];
 }

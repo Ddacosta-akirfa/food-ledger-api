@@ -1,8 +1,9 @@
-export interface UpdatePurchaseDto {
-  categoryId: number;
-  paymentMethodId: number;
-
-  description?: string;
-  amount?: number;
-  purchaseDate?: Date;
+export interface UpdatePurchaseDTO {
+  date?: Date;
+  product?: string;
+  quantity?: number;
+  unitPrice?: number;
+  paymentMethod?: string;
+  notes?: string;
+  categoryId?: string;
 }
