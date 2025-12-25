@@ -1,5 +1,5 @@
 import { UpdateUserDTO } from "../dtos/update.user.dto.js";
-import { UserResponseDTO } from "../dtos/user.response.dto.js";
+import { UserEntityDTO, UserResponseDTO } from "../dtos/user.response.dto.js";
 import { IUserRepository } from "./IUserRepository.js";
 import { PrismaClient } from "../../../generated/prisma/client.js";
 import { CreateUserDTO } from "../dtos/create.user.dto.js";
@@ -31,7 +31,7 @@ export class UserRepository implements IUserRepository {
     return user;
   }
 
-  async findByEmail(email: string): Promise<UserResponseDTO | null> {
+  async findByEmail(email: string): Promise<UserEntityDTO | null> {
     const user = await this.db.user.findUnique({
       where: {
         email,

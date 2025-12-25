@@ -4,3 +4,7 @@ export interface CreateUserDTO {
   password: string;
   photo?: string;
 }
+
+export interface UserCreateData extends CreateUserDTO {
+  isActive: boolean;
+}
