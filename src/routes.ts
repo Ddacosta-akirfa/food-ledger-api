@@ -1,16 +1,36 @@
 import { Router } from "express";
-import * as purchaseController from "../src/modules/purchase/controller/purchaseController.js";
+import * as purchaseController from "./modules/purchase/controller/purchaseController.js";
+import * as userController from "./modules/user/controller/user.controller.js";
+
+import * as authController from "./modules/auth/controllers/auth.controller.js";
+import { authMiddleware } from "../src/shared/middlewares/auth.middleware.js";
 
 const router: Router = Router();
 
 // Purchase routes
-router.post("/user/purchase", purchaseController.createPurchase);
-router.get("/user/purchase", purchaseController.listAllPurchases);
+router.post(
+  "/user/purchase",
+  authMiddleware,
+  purchaseController.createPurchase
+);
+router.get(
+  "/user/purchase",
+  authMiddleware,
+  purchaseController.listAllPurchases
+);
 router.get("/user/purchase/month", purchaseController.listPurchasesByMonth);
 router.get(
   "/user/purchase/month/summary",
+  authMiddleware,
   purchaseController.getMonthlySummary
 );
-router.put("/:id", purchaseController.updatePurchase);
+router.put("/:id", authMiddleware, purchaseController.updatePurchase);
+
+// User routes
+router.post("/", userController.createUser);
+router.get("/activate/:activationToken", userController.activateUser);
+
+// Auth routes
+router.post("/login", authController.login);
 
 export default router;
