@@ -1,21 +1,26 @@
-import { CreatePurchaseDto } from "../dto/CreatePurchaseDto.js";
-import { MonthlySummaryDto } from "../dto/MonthlySummaryDto.js";
-import { PurchaseDto } from "../dto/PurchaseDto.js";
+import { CreatePurchaseDTO } from "../dto/CreatePurchaseDto.js";
+import { CreatePurchasePersistenceDTO } from "../dto/CreatePurchasePersistenceDTO.js";
+import { MonthlySummaryDTO } from "../dto/MonthlySummaryDto.js";
+import { PurchaseDTO } from "../dto/PurchaseDto.js";
+import { UpdatePurchaseDTO } from "../dto/UpdatePurchasedto.js";
 
 export interface IPurchaseRepository {
-  create(data: CreatePurchaseDto): Promise<PurchaseDto>;
+  create(data: CreatePurchasePersistenceDTO): Promise<PurchaseDTO>;
 
-  findAll(userId: string): Promise<PurchaseDto[]>;
+  findById(id: string): Promise<PurchaseDTO | null>;
+  findAll(userId: string): Promise<PurchaseDTO[]>;
 
   findByMonth(
     userId: string,
     year: number,
     month: number
-  ): Promise<PurchaseDto[]>;
+  ): Promise<PurchaseDTO[]>;
 
   getMonthlySummary(
     userId: string,
     year: number,
     month: number
-  ): Promise<MonthlySummaryDto>;
+  ): Promise<MonthlySummaryDTO>;
+
+  update(id: string, data: UpdatePurchaseDTO): Promise<PurchaseDTO>;
 }

@@ -1,5 +1,8 @@
 import { PrismaMariaDb } from "@prisma/adapter-mariadb";
-import { PrismaClient } from "../../../generated/prisma/client.js";
+import {
+  PaymentMethod,
+  PrismaClient,
+} from "../../../generated/prisma/client.js";
 import {
   CategorySummaryDTO,
   MonthlySummaryDTO,
@@ -7,6 +10,7 @@ import {
 import { PurchaseDTO } from "../dto/PurchaseDto.js";
 import { IPurchaseRepository } from "./IPurchaseRepository.js";
 import { CreatePurchasePersistenceDTO } from "../dto/CreatePurchasePersistenceDTO.js";
+import { UpdatePurchaseDTO } from "../dto/UpdatePurchasedto.js";
 
 // const adapter = new PrismaMariaDb(process.env.DATABASE_URL!);
 
@@ -18,7 +22,7 @@ export class PurchaseRepository implements IPurchaseRepository {
       data: {
         userId: data.userId,
         categoryId: data.categoryId,
-        date: data.purchaseDate,
+        date: data.date,
 
         product: data.product,
         quantity: data.quantity,
@@ -32,7 +36,7 @@ export class PurchaseRepository implements IPurchaseRepository {
 
     return {
       id: purchase.id,
-      purchaseDate: purchase.date,
+      date: purchase.date,
       product: purchase.product,
       quantity: purchase.quantity,
       unitPrice: purchase.unitPrice,
@@ -41,6 +45,30 @@ export class PurchaseRepository implements IPurchaseRepository {
 
       notes: purchase.notes ?? "",
 
+      userId: purchase.userId,
+      categoryId: purchase.categoryId,
+    };
+  }
+
+  async findById(purchaseId: string): Promise<PurchaseDTO | null> {
+    const purchase = await this.prisma.purchase.findUnique({
+      where: {
+        id: purchaseId,
+      },
+    });
+    if (!purchase) {
+      return null;
+    }
+
+    return {
+      id: purchase.id,
+      date: purchase.date,
+      product: purchase.product,
+      quantity: purchase.quantity,
+      unitPrice: purchase.unitPrice,
+      total: purchase.total,
+      paymentMethod: purchase.paymentMethod,
+      notes: purchase.notes ?? "",
       userId: purchase.userId,
       categoryId: purchase.categoryId,
     };
@@ -58,7 +86,7 @@ export class PurchaseRepository implements IPurchaseRepository {
 
     return purchases.map((purchase) => ({
       id: purchase.id,
-      purchaseDate: purchase.date,
+      date: purchase.date,
       product: purchase.product,
       quantity: purchase.quantity,
       unitPrice: purchase.unitPrice,
@@ -101,7 +129,7 @@ export class PurchaseRepository implements IPurchaseRepository {
       userId: purchase.userId,
       notes: purchase.notes ?? "",
       unitPrice: purchase.unitPrice,
-      purchaseDate: purchase.date,
+      date: purchase.date,
       categoryId: purchase.categoryId,
       paymentMethod: purchase.paymentMethod,
     }));
@@ -151,6 +179,42 @@ export class PurchaseRepository implements IPurchaseRepository {
     return {
       total: totalResult._sum.unitPrice ?? 0,
       byCategory: byCategory,
+    };
+  }
+
+  async update(id: string, data: UpdatePurchaseDTO): Promise<PurchaseDTO> {
+    const updateData: any = {};
+
+    if (data.date !== undefined) updateData.date = data.date;
+    if (data.product !== undefined) updateData.product = data.product;
+    if (data.quantity !== undefined) updateData.quantity = data.quantity;
+    if (data.unitPrice !== undefined) updateData.unitPrice = data.unitPrice;
+    if (data.total !== undefined) updateData.total = data.total;
+    if (data.paymentMethod !== undefined)
+      updateData.paymentMethod = data.paymentMethod;
+    if (data.notes !== undefined) updateData.notes = data.notes;
+    if (data.categoryId !== undefined) {
+      updateData.category = {
+        connect: { id: data.categoryId },
+      };
+    }
+
+    const updatedPurchase = await this.prisma.purchase.update({
+      where: { id },
+      data: updateData,
+    });
+
+    return {
+      id: updatedPurchase.id,
+      date: updatedPurchase.date,
+      product: updatedPurchase.product,
+      quantity: updatedPurchase.quantity,
+      unitPrice: updatedPurchase.unitPrice,
+      total: updatedPurchase.total,
+      paymentMethod: updatedPurchase.paymentMethod,
+      notes: updatedPurchase.notes ?? "",
+      userId: updatedPurchase.userId,
+      categoryId: updatedPurchase.categoryId,
     };
   }
 }

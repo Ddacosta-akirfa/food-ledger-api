@@ -4,7 +4,7 @@ export interface CreatePurchaseDTO {
   userId: string;
   categoryId: string;
 
-  purchaseDate: Date;
+  date: Date;
   product: string;
   quantity: number;
   unitPrice: number;
