@@ -1,0 +1,35 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .:
+    dependencies:
+      pnpm:
+        specifier: ^10.26.2
+        version: 10.26.2
+    devDependencies:
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+
+packages:
+
+  pnpm@10.26.2:
+    resolution: {integrity: sha512-DjCP8gBfx0EDZvFU9iX2YxqysWsdLnAjhETdaunWMKhILZKkURRN68SSQWiW7Rb3sRSobsaLhASyRDhp5o/9pg==}
+    engines: {node: '>=18.12'}
+    hasBin: true
+
+  typescript@5.9.3:
+    resolution: {integrity: sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+
+snapshots:
+
+  pnpm@10.26.2: {}
+
+  typescript@5.9.3: {}
