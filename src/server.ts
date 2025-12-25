@@ -1,23 +1,13 @@
-import express, { type Application } from "express";
-// import routes from "../src/routes.js";
+import app from "./app.js";
 
-const app: Application = express();
-const port = process.env.PORT;
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-const API_PREFIX = "/api/v1";
-// app.use(API_PREFIX, routes);
+export const port = process.env.PORT!;
 
 app.listen(port, () => {
   console.log(`
-    ╔════════════════════════════════════════╗
-    ║   cinfohub API                         ║
-    ║   Rodando em: http://localhost:${port}    ║
-    ║   Ambiente: ${process.env.NODE_ENV}                ║
-    ╚════════════════════════════════════════╝
+    ╔═══════════════════════════════════════════════╗
+    ║   FoodLedger API                              ║
+    ║   Rodando em: http://localhost:${port}/api/v1    ║
+    ║   Ambiente: ${process.env.NODE_ENV}                       ║
+    ╚═══════════════════════════════════════════════╝
     `);
 });
-
-export default app;

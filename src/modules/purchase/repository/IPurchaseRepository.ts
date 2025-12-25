@@ -8,7 +8,7 @@ export interface IPurchaseRepository {
   create(data: CreatePurchasePersistenceDTO): Promise<PurchaseDTO>;
 
   findById(id: string): Promise<PurchaseDTO | null>;
-  findAll(userId: string): Promise<PurchaseDTO[]>;
+  findAll(): Promise<PurchaseDTO[]>;
 
   findByMonth(
     userId: string,

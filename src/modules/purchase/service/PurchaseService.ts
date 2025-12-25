@@ -1,3 +1,4 @@
+import { ApiResponse } from "../../../shared/utils/ApiResponse.js";
 import { CreatePurchaseDTO } from "../dto/CreatePurchaseDto.js";
 import { CreatePurchasePersistenceDTO } from "../dto/CreatePurchasePersistenceDTO.js";
 import { MonthlySummaryDTO } from "../dto/MonthlySummaryDto.js";
@@ -37,10 +38,8 @@ export class PurchaseService {
     return purchase;
   }
 
-  async findAll(userId: string): Promise<PurchaseDTO[]> {
-    if (!userId) throw new Error("Id usuário é requerido");
-
-    const purchases = await this.purchaseRepository.findAll(userId);
+  async findAll(): Promise<PurchaseDTO[]> {
+    const purchases = await this.purchaseRepository.findAll();
     return purchases;
   }
 
@@ -50,6 +49,8 @@ export class PurchaseService {
     month: number
   ): Promise<PurchaseDTO[]> {
     if (!userId) throw new Error("Id usuário é requerido");
+
+    if (!year || !month) throw new Error("Ano e mês são requeridos");
 
     if (month < 1 || month > 12) throw new Error("Mês deve estar entre 1 e 12");
 
@@ -68,6 +69,8 @@ export class PurchaseService {
     month: number
   ): Promise<MonthlySummaryDTO> {
     if (!userId) throw new Error("Id usuário é requerido");
+
+    if (!year || !month) throw new Error("Ano e mês são requeridos");
 
     if (month < 1 || month > 12) throw new Error("Mês deve estar entre 1 e 12");
 

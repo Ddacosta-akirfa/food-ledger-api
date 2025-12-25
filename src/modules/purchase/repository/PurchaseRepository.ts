@@ -1,8 +1,5 @@
 import { PrismaMariaDb } from "@prisma/adapter-mariadb";
-import {
-  PaymentMethod,
-  PrismaClient,
-} from "../../../generated/prisma/client.js";
+import { PrismaClient } from "../../../generated/prisma/client.js";
 import {
   CategorySummaryDTO,
   MonthlySummaryDTO,
@@ -74,11 +71,8 @@ export class PurchaseRepository implements IPurchaseRepository {
     };
   }
 
-  async findAll(userId: string): Promise<PurchaseDTO[]> {
+  async findAll(): Promise<PurchaseDTO[]> {
     const purchases = await this.prisma.purchase.findMany({
-      where: {
-        userId,
-      },
       orderBy: {
         date: "desc",
       },
