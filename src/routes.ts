@@ -1,7 +1,7 @@
 import { Router } from "express";
 import * as purchaseController from "./modules/purchase/controller/purchaseController.js";
 import * as userController from "./modules/user/controller/user.controller.js";
-
+import * as categoryController from "./modules/category/controller/category.controller.js";
 import * as authController from "./modules/auth/controllers/auth.controller.js";
 import { authMiddleware } from "../src/shared/middlewares/auth.middleware.js";
 

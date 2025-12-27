@@ -24,7 +24,6 @@ export async function createPurchase(req: Request, res: Response) {
 
 export async function listAllPurchases(req: Request, res: Response) {
   try {
-    const userId = req.params.userId;
     const purchases = await purchaseService.findAll();
 
     return ApiResponse.success(

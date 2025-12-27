@@ -12,7 +12,7 @@ export class PurchaseService {
   async createPurchase(
     data: CreatePurchasePersistenceDTO
   ): Promise<PurchaseDTO> {
-    if (!data.userId) throw new Error("Id usuário é requeriod");
+    if (!data.userId) throw new Error("Id usuário é requerido");
 
     if (data.quantity <= 0)
       throw new Error("Quantidade deve ser maior que zero");
@@ -21,12 +21,10 @@ export class PurchaseService {
 
     if (!data.paymentMethod) throw new Error("Método de Pagamento é requerido");
 
-    if (!data.notes) throw new Error("Notas é requerida");
-
     if (data.unitPrice <= 0)
       throw new Error("Preço unitário deve ser maior que zero");
 
-    if (!data.date) throw new Error("Purchase date is required");
+    if (!data.date) throw new Error("Data da compra é requerida");
 
     const total = data.unitPrice * data.quantity;
 
