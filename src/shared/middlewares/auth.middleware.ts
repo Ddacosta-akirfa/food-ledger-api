@@ -1,21 +1,10 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import { ApiResponse } from "../utils/ApiResponse.js";
-
-interface JwtPayload {
-  sub: string;
-  email: string;
-  name?: string;
-  iat?: number;
-  exp?: number;
-}
-
-export interface AuthenticatedRequest extends Request {
-  user?: JwtPayload;
-}
+import { JwtPayload } from "../../modules/auth/dto/jwt.payload.dto.js";
 
 export function authMiddleware(
-  req: AuthenticatedRequest,
+  req: Request,
   res: Response,
   next: NextFunction
 ) {

@@ -28,7 +28,7 @@ router.put("/:id", authMiddleware, purchaseController.updatePurchase);
 
 // User routes
 router.post("/create", userController.createUser);
-router.get("/activate/:activationToken", userController.activateUser);
+router.get("/activate", userController.activateUser);
 
 // Auth routes
 router.post("/login", authController.login);

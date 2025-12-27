@@ -39,7 +39,7 @@ export async function listAllPurchases(req: Request, res: Response) {
 
 export async function listPurchasesByMonth(req: Request, res: Response) {
   try {
-    const userId = req.params.userId!;
+    const userId = req.user!.sub;
     const { year, month } = req.query;
 
     const purchases = await purchaseService.findByMonth(
@@ -60,7 +60,7 @@ export async function listPurchasesByMonth(req: Request, res: Response) {
 
 export async function getMonthlySummary(req: Request, res: Response) {
   try {
-    const userId = req.params.userId!;
+    const userId = req.user!.sub;
     const { year, month } = req.query;
 
     const summary = await purchaseService.getMonthlySummary(

@@ -32,7 +32,7 @@ export class EmailService {
             <tr>
               <td style="background:#0f172a; padding:20px; text-align:center;">
                 <h1 style="color:#ffffff; margin:0; font-size:20px;">
-                  Ative sua conta FoodLedger
+                  Active sua conta FoodLedger
                 </h1>
               </td>
             </tr>

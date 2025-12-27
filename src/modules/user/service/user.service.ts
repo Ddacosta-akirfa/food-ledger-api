@@ -21,7 +21,7 @@ export class UserService implements IUserService {
     });
 
     const activationToken = this.generateActivationToken(user.id, user.email);
-    const activationLink = `http://localhost:3000/activate?token=${activationToken}`;
+    const activationLink = `http://localhost:8888/api/v1/activate?token=${activationToken}`;
 
     const emailHtml = this.emailService.emailHtml(user.name, activationLink);
 
@@ -38,6 +38,13 @@ export class UserService implements IUserService {
   async activateUser(token: string): Promise<void> {
     try {
       const secret = process.env.JWT_ACTIVATION_SECRET!;
+
+      console.log("TOKEN:", token);
+      console.log("SECRET:", secret);
+      if (typeof token !== "string") {
+        throw new Error("Token inválido");
+      }
+
       const payload = jwt.verify(token, secret) as {
         sub: string;
         email: string;
