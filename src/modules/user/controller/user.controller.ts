@@ -25,8 +25,8 @@ export const createUser = async (req: Request, res: Response) => {
 
 export const activateUser = async (req: Request, res: Response) => {
   try {
-    const { activationToken } = req.params;
-    const user = await userService.activateUser(activationToken!);
+    const token = req.query.token as string;
+    const user = await userService.activateUser(token);
 
     return ApiResponse.success(res, "Usuário activado com sucesso", user);
   } catch (error: any) {

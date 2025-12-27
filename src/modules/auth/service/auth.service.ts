@@ -36,8 +36,12 @@ export class AuthService implements IAuthService {
   }
 
   private generateToken(payload: JWTPayload): string {
-    const secret = process.env.JWT_SECRET!;
+    const secret = process.env.JWT_SECRET;
     const expiresIn = "1d";
+
+    if (!secret) {
+      throw new Error("JWT_SECRET não configurado");
+    }
 
     return jwt.sign(payload, secret, { expiresIn });
   }
