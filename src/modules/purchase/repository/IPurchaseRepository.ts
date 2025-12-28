@@ -1,4 +1,3 @@
-import { CreatePurchaseDTO } from "../dto/CreatePurchaseDto.js";
 import { CreatePurchasePersistenceDTO } from "../dto/CreatePurchasePersistenceDTO.js";
 import { MonthlySummaryDTO } from "../dto/MonthlySummaryDto.js";
 import { PurchaseDTO } from "../dto/PurchaseDto.js";

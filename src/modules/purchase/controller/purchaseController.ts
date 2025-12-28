@@ -24,7 +24,6 @@ export async function createPurchase(req: Request, res: Response) {
 
 export async function listAllPurchases(req: Request, res: Response) {
   try {
-    const userId = req.params.userId;
     const purchases = await purchaseService.findAll();
 
     return ApiResponse.success(
@@ -39,14 +38,17 @@ export async function listAllPurchases(req: Request, res: Response) {
 
 export async function listPurchasesByMonth(req: Request, res: Response) {
   try {
-    const userId = req.user!.sub;
-    const { year, month } = req.query;
+    const userId = req.user!.id;
 
-    const purchases = await purchaseService.findByMonth(
-      userId,
-      Number(year),
-      Number(month)
-    );
+    if (!userId) {
+      return ApiResponse.error(res, "Usuário não autenticado", 401);
+    }
+
+    // const { year, month } = req.query;
+    const year = Number(req.query.year);
+    const month = Number(req.query.month);
+
+    const purchases = await purchaseService.findByMonth(userId, year, month);
 
     return ApiResponse.success(
       res,
@@ -60,13 +62,20 @@ export async function listPurchasesByMonth(req: Request, res: Response) {
 
 export async function getMonthlySummary(req: Request, res: Response) {
   try {
-    const userId = req.user!.sub;
-    const { year, month } = req.query;
+    const userId = req.user!.id;
+
+    if (!userId) {
+      return ApiResponse.error(res, "Usuário não autenticado", 401);
+    }
+
+    // const { year, month } = req.query;
+    const year = Number(req.query.year);
+    const month = Number(req.query.month);
 
     const summary = await purchaseService.getMonthlySummary(
       userId,
-      Number(year),
-      Number(month)
+      year,
+      month
     );
 
     return ApiResponse.success(
