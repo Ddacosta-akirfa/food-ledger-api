@@ -8,29 +8,36 @@ import { authMiddleware } from "../src/shared/middlewares/auth.middleware.js";
 const router: Router = Router();
 
 // Purchase routes
-router.post(
-  "/user/purchase",
-  authMiddleware,
-  purchaseController.createPurchase
-);
+router.post("/purchases", authMiddleware, purchaseController.createPurchase);
+router.get("/purchases", authMiddleware, purchaseController.listAllPurchases);
 router.get(
-  "/user/purchase",
+  "/purchases/month",
   authMiddleware,
-  purchaseController.listAllPurchases
+  purchaseController.listPurchasesByMonth
 );
-router.get("/user/purchase/month", purchaseController.listPurchasesByMonth);
-router.get(
-  "/user/purchase/month/summary",
-  authMiddleware,
-  purchaseController.getMonthlySummary
-);
-router.put("/:id", authMiddleware, purchaseController.updatePurchase);
+router.get("/summary", authMiddleware, purchaseController.getMonthlySummary);
+router.put("/purchases/:id", authMiddleware, purchaseController.updatePurchase);
 
 // User routes
-router.post("/create", userController.createUser);
+router.post("/users/register", userController.createUser);
 router.get("/activate", userController.activateUser);
 
 // Auth routes
 router.post("/login", authController.login);
+
+// category routes
+router.post("/categories", authMiddleware, categoryController.createCategory);
+router.get("/categories", categoryController.listCategories);
+router.get("/categories/:id", categoryController.getCategoryById);
+router.put(
+  "/categories/:id",
+  authMiddleware,
+  categoryController.updateCategory
+);
+router.delete(
+  "/categories/:id",
+  authMiddleware,
+  categoryController.deleteCategory
+);
 
 export default router;

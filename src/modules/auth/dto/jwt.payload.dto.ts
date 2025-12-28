@@ -2,7 +2,7 @@ export interface JwtPayload {
   /**
    * Subject (ID do usuário) — identifica o dono do token
    */
-  sub: string;
+  id: string;
 
   /**
    * Email do usuário — usado para identificação e comunicação
